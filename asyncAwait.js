@@ -48,7 +48,7 @@ getColdDrinks.then((t)=>{console.log(t)}); */
 
 // place a promise inside the async function 
 
-const preMovie = async()=>{
+/* const preMovie = async()=>{
     const promiseWifeBringingTicks = new Promise((resolve, reject)=>{
         setTimeout(()=>{
             resolve('ticket');
@@ -83,7 +83,41 @@ const preMovie = async()=>{
     console.log('wife: Okay lets go');
 
     return ticket;
-}
+} */
+
+//const preMovie = async()=>'pre movie';
+
+// place a promise inside the async function 
+
+ const preMovie = async()=>{
+    const promiseWifeBringingTicks = new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            reject('ticket');
+        },3000);
+    });
+    const getPopcorn = new Promise((resolve,reject)=>resolve('Popcorn'));
+    const getButter = new Promise((resolve,reject)=>resolve('Butter'));
+    const getColdDrinks = new Promise((resolve,reject)=>resolve('Cold drinks'));
+
+    //catch error 
+
+    let ticket;
+    try{
+        ticket = await promiseWifeBringingTicks;
+    } catch(e){
+        ticket = 'So sad face';
+    }
+    
+    // promise.all
+
+    //let ticket = await promiseWifeBringingTicks;
+
+    let [popcorn, butter, drink] = await Promise.all([getPopcorn,getButter,getColdDrinks]);
+
+    console.log(`${popcorn}, ${butter}, ${drink}`);
+
+    return ticket;
+} 
 
 preMovie().then((m)=>console.log(`person3: shows ${m}`));
 
